@@ -29,7 +29,7 @@ public class BookController {
     }
 
     @PutMapping("book/{id}")
-    public String update(Model model, @PathVariable long id, @ModelAttribute("book") Book book) {
+    public String update(Model model, @ModelAttribute Book book) {
         bookService.update(book);
         model.addAttribute("list", bookService.findAll());
         return "books";

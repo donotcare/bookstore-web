@@ -15,8 +15,8 @@
 
 <div class="container">
     <h1>Books</h1>
-    <form class="form-group" action="/book" method="post">
-        <input type="text" class="form-control" name = "name" id="name"/>
+    <form class="form-inline" action="/book" method="post">
+        <input type="text" class="form-control" name="name" id="name"/>
         <button type="submit" class="btn btn-primary">Create</button>
     </form>
 
@@ -32,8 +32,16 @@
             <td th:text="${book.id}">1</td>
             <td th:text="${book.name}">Test</td>
             <td>
-                <a href="/book/1" th:href="@{/book/__${book.id}__}">Edit</a>
-                <a href="/book/1" th:href="@{/book/__${book.id}__}">Delete</a>
+                <div class="row">
+                    <div class="col-md-1">
+                        <a class="btn btn-primary" href="/book/1" th:href="@{/book/__${book.id}__}">Edit</a>
+                    </div>
+                    <div class="col-md-1">
+                        <form class="form-inline" th:object="${book}" th:action="@{/book/__${book.id}__}" th:method="DELETE">
+                            <button type="submit" class="btn btn-primary" value="Submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
             </td>
         </tr>
         </tbody>

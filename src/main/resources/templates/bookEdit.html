@@ -14,10 +14,10 @@
 <div class="container">
     <h1>Books</h1>
     <form class="form-group"  th:object="${book}" th:action="@{/book/__${book.id}__}" th:method="PUT">
-        <input th:type="hidden" th:field="*{id}" />
+        <input th:type="hidden" th:field="*{id}" name = "id"/>
         <div class="form-group">
             <label for="name">Title</label>
-            <input type="text" class="form-control" id = "name" th:field="*{name}" />
+            <input type="text" class="form-control" id = "name" th:field="*{name}" name = "name"/>
         </div>
         <button type="submit" class="btn btn-primary" value="Submit">Save</button>
         <a href="/book" class="btn btn-danger" role="button">Cancel</a>
