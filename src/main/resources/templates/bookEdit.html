@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Notes</title>
+
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}" src="js/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Books</h1>
+    <form class="form-group"  th:object="${book}" th:action="@{/book/__${book.id}__}" th:method="PUT">
+        <input th:type="hidden" th:field="*{id}" />
+        <div class="form-group">
+            <label for="name">Title</label>
+            <input type="text" class="form-control" id = "name" th:field="*{name}" />
+        </div>
+        <button type="submit" class="btn btn-primary" value="Submit">Save</button>
+        <a href="/book" class="btn btn-danger" role="button">Cancel</a>
+    </form>
+</div>
+
+</body>
+</html>

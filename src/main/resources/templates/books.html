@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Books</title>
+
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}"/>
+
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}" src="js/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" src="js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Books</h1>
+    <form class="form-group" action="/book" method="post">
+        <input type="text" class="form-control" name = "name" id="name"/>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${list}">
+            <td th:text="${book.id}">1</td>
+            <td th:text="${book.name}">Test</td>
+            <td>
+                <a href="/book/1" th:href="@{/book/__${book.id}__}">Edit</a>
+                <a href="/book/1" th:href="@{/book/__${book.id}__}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
