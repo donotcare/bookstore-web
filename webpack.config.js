@@ -1,7 +1,6 @@
 var packageJSON = require('./package.json');
 var path = require('path');
 var webpack = require('webpack');
-var frontSrcPath = path.resolve (__dirname, 'frontend');
 
 module.exports = {
     entry: './src/main/frontend/index.jsx',

@@ -11,11 +11,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import DialogContent from '@material-ui/core/DialogContent';
 
-interface IBook {
-    id: string;
-    name: string;
-}
-
 class App extends React.Component {
 
     constructor(props) {
@@ -47,9 +42,9 @@ class App extends React.Component {
             .then(data => this.setState({open: false, book: {id: null, name: ""}, books: data}));
     };
 
-    async save() {
+    handleSave() {
         if (this.state.book.id == null) {
-            await fetch(`/book`, {
+            fetch(`/book`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -58,7 +53,7 @@ class App extends React.Component {
                 body: JSON.stringify(this.state.book)
             });
         } else {
-            await fetch(`/book/${this.state.book.id}`, {
+            fetch(`/book/${this.state.book.id}`, {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
@@ -70,8 +65,8 @@ class App extends React.Component {
         this.handleClose();
     }
 
-    async remove(id) {
-        await fetch(`/api/group/${id}`, {
+    async handleRemove(id) {
+        await fetch(`/book/${id}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -99,14 +94,14 @@ class App extends React.Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.state.books.map((book: IBook) =>
+                        {this.state.books.map(book =>
                             <TableRow>
                                 <TableCell>{book.id}</TableCell>
                                 <TableCell>{book.name}</TableCell>
                                 <TableCell>
                                     <Button color="primary"
                                             onClick={() => this.handleClickOpen(book.id)}>Редактировать</Button>
-                                    <Button color="primary" onClick={() => this.remove(book.id)}>Удалить</Button>
+                                    <Button color="primary" onClick={() => this.handleRemove(book.id)}>Удалить</Button>
                                 </TableCell>
                             </TableRow>
                         )}
@@ -124,7 +119,7 @@ class App extends React.Component {
                             value={this.state.book.name}
                             onChange={event => this.handleChange(event)}
                         />
-                        <Button onClick={() => this.save()}>Сохранить</Button>
+                        <Button onClick={() => this.handleSave()}>Сохранить</Button>
                     </DialogContent>
                 </Dialog>
             </div>
