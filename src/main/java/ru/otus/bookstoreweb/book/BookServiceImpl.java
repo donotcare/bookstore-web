@@ -4,8 +4,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.Collection;
-
 @Service
 public class BookServiceImpl implements BookService {
     private final BookRepository repository;
@@ -15,16 +13,16 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Mono<Book> getById(long id) {
+    public Mono<Book> getById(String id) {
         return repository.findById(id);
     }
 
     @Override
-    public void update(Book book) {
+    public Mono<Book> update(Book book) {
         if (book.getId() == null) {
             throw new IllegalArgumentException("Id must not be null");
         }
-        repository.save(book);
+        return repository.save(book);
     }
 
     @Override
@@ -36,8 +34,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void delete(long id) {
-        repository.deleteById(id);
+    public Mono<Void> delete(String id) {
+        return repository.deleteById(id);
     }
 
     @Override
