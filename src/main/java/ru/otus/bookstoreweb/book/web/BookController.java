@@ -1,6 +1,8 @@
 package ru.otus.bookstoreweb.book.web;
 
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import ru.otus.bookstoreweb.book.Book;
 import ru.otus.bookstoreweb.book.BookService;
 
@@ -20,13 +22,13 @@ public class BookController {
     }
 
     @GetMapping("book/{id}")
-    public Book getById(@PathVariable long id) {
+    public Mono<Book> getById(@PathVariable long id) {
         return bookService.getById(id);
     }
 
     @PutMapping("book/{id}")
-    public void update(@PathVariable long id, @RequestBody Book book) {
-        if(id != book.getId()){
+    public void update(@PathVariable String id, @RequestBody Book book) {
+        if(!id.equals(book.getId())){
             throw new IllegalArgumentException("Wrong book id");
         }
         bookService.update(book);
@@ -38,7 +40,7 @@ public class BookController {
     }
 
     @GetMapping("book")
-    public Collection<Book> list() {
+    public Flux<Book> list() {
         return bookService.findAll();
     }
 }

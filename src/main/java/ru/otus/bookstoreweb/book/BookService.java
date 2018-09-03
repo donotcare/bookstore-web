@@ -1,15 +1,18 @@
 package ru.otus.bookstoreweb.book;
 
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
 import java.util.Collection;
 
 public interface BookService {
-    Book getById(long id);
+    Mono<Book> getById(long id);
 
     void update(Book book);
 
-    Book create(Book book);
+    Mono<Book> create(Book book);
 
     void delete(long id);
 
-    Collection<Book> findAll();
+    Flux<Book> findAll();
 }
