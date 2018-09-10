@@ -2,22 +2,23 @@ package ru.otus.bookstoreweb;
 
 import com.mongodb.MongoClient;
 import cz.jirutka.spring.embedmongo.EmbeddedMongoFactoryBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.io.IOException;
 
 @Configuration
+@PropertySource("classpath:application.properties")
 public class AppConfiguration {
-    private static final String MONGO_DB_URL = "localhost";
-    private static final String MONGO_DB_NAME = "embeded_db";
 
     @Bean
-    public MongoTemplate mongoTemplate() throws IOException {
+    public MongoTemplate mongoTemplate(@Value("${mongo-db-url}") String mongoDbUrl, @Value("${mongo-db-name}") String mongodbName) throws IOException {
         EmbeddedMongoFactoryBean mongo = new EmbeddedMongoFactoryBean();
-        mongo.setBindIp(MONGO_DB_URL);
+        mongo.setBindIp(mongoDbUrl);
         MongoClient mongoClient = mongo.getObject();
-        return new MongoTemplate(mongoClient, MONGO_DB_NAME);
+        return new MongoTemplate(mongoClient, mongodbName);
     }
 }

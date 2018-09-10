@@ -6,8 +6,7 @@
     "build": "webpack",
     "postinstall": "npm run build"
   },
-  "author": "",
-  "license": "ISC",
+  "private": true,
   "dependencies": {
     "@material-ui/core": "latest",
     "react": "latest",
@@ -24,9 +23,7 @@
   },
   "babel": {
     "presets": [
-      [
-        "es2015"
-      ],
+      "es2015",
       "react"
     ]
   }
