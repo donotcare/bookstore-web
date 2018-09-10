@@ -11,7 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import DialogContent from '@material-ui/core/DialogContent';
 
-class App extends React.Component {
+export class App extends React.Component {
 
     constructor(props) {
         super(props);
@@ -43,8 +43,9 @@ class App extends React.Component {
     };
 
     handleSave() {
+        let promise;
         if (this.state.book.id == null) {
-            fetch(`/book`, {
+            promise = fetch(`/book`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -53,7 +54,7 @@ class App extends React.Component {
                 body: JSON.stringify(this.state.book)
             });
         } else {
-            fetch(`/book/${this.state.book.id}`, {
+            promise = fetch(`/book/${this.state.book.id}`, {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
@@ -62,7 +63,8 @@ class App extends React.Component {
                 body: JSON.stringify(this.state.book)
             });
         }
-        this.handleClose();
+        promise.then(() => this.handleClose());
+
     }
 
     async handleRemove(id) {
@@ -127,5 +129,3 @@ class App extends React.Component {
     }
 }
 
-
-ReactDom.render(<App/>, document.getElementById('react'));

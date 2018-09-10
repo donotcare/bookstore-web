@@ -1,8 +1,8 @@
 package ru.otus.bookstoreweb.book;
 
 import org.springframework.stereotype.Service;
-
-import java.util.Collection;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -13,20 +13,20 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book getById(long id) {
-        return repository.findById(id).orElse(null);
+    public Mono<Book> getById(String id) {
+        return repository.findById(id);
     }
 
     @Override
-    public void update(Book book) {
+    public Mono<Book> update(Book book) {
         if (book.getId() == null) {
             throw new IllegalArgumentException("Id must not be null");
         }
-        repository.save(book);
+        return repository.save(book);
     }
 
     @Override
-    public Book create(Book book) {
+    public Mono<Book> create(Book book) {
         if (book.getId() != null) {
             throw new IllegalArgumentException("Id must be null");
         }
@@ -34,12 +34,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void delete(long id) {
-        repository.deleteById(id);
+    public Mono<Void> delete(String id) {
+        return repository.deleteById(id);
     }
 
     @Override
-    public Collection<Book> findAll() {
+    public Flux<Book> findAll() {
         return repository.findAll();
     }
 }
