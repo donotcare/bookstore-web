@@ -1,5 +1,7 @@
 package ru.otus.bookstoreweb.book;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -7,13 +9,16 @@ import java.util.Collection;
 @Service
 public class BookServiceImpl implements BookService {
     private final BookRepository repository;
+    private final Counter counter;
 
-    public BookServiceImpl(BookRepository repository) {
+    public BookServiceImpl(BookRepository repository, MeterRegistry registry) {
         this.repository = repository;
+        this.counter = registry.counter("get.requests");
     }
 
     @Override
     public Book getById(long id) {
+        counter.increment();
         return repository.getOne(id);
     }
 
