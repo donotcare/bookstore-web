@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  bookstore-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bookstore-web
+    ports:
+    - 8080:8080
+    depends_on:
+    - postgres
+
+  postgres:
+    build:
+      context: .
+      dockerfile: images/postgres/Dockerfile
+    container_name: postgres
+    ports:
+    - 5432:5432
+
