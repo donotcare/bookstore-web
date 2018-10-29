@@ -42,4 +42,11 @@ public class BookServiceImpl implements BookService {
     public Collection<Book> findAll() {
         return repository.findAll();
     }
+
+    @Override
+    public Collection<Book> findBookByName(String name) {
+        return repository.findBookByName(name);
+    }
+
+
 }
